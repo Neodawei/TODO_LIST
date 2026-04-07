@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ma Todo List by LC et DT corporation </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Gestionnaire de tâches</h1>
+
+    <h2>Ajouter une tâche</h2>
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="Titre" required>
+        <input type="text" name="description" placeholder="Description" required>
+        <input type="date" name="due_date" required>
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <h2>Liste des tâches</h2>
+
+    {% if tasks %}
+        {% for task in tasks %}
+            <div class="task">
+                <h3>{{ task.title }}</h3>
+                <p><strong>Description :</strong> {{ task.description }}</p>
+                <p><strong>Statut :</strong> {{ task.status }}</p>
+                <p><strong>Date de fin :</strong> {{ task.due_date }}</p>
+
+                <a href="/toggle/{{ task.id }}">Changer statut</a>
+                <a href="/edit/{{ task.id }}">Modifier</a>
+                <a href="/delete/{{ task.id }}" onclick="return confirm('Supprimer cette tâche ?')">Supprimer</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Aucune tâche pour le moment.</p>
+    {% endif %}
+</body>
+</html>
