@@ -1,38 +1,90 @@
 <!DOCTYPE html>
+<!-- Indique que c'est un document HTML5 -->
+
 <html lang="fr">
+<!-- Langue du site : français -->
+
 <head>
     <meta charset="UTF-8">
-    <title>Ma Todo List by LC et DT corporation </title>
+    <!-- Permet d'afficher correctement les accents -->
+
+    <title>Ma Todo List by LC et DT corporation</title>
+    <!-- Titre affiché dans l’onglet du navigateur -->
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Lien vers le fichier CSS (Flask va chercher le fichier dans /static) -->
 </head>
+
 <body>
+
     <h1>Gestionnaire de tâches</h1>
+    <!-- Titre principal -->
 
     <h2>Ajouter une tâche</h2>
+    <!-- Sous-titre pour le formulaire -->
+
     <form action="/add" method="POST">
+        <!-- Formulaire envoyé vers la route /add en POST -->
+
         <input type="text" name="title" placeholder="Titre" required>
+        <!-- Champ pour entrer le titre de la tâche -->
+
         <input type="text" name="description" placeholder="Description" required>
+        <!-- Champ pour entrer la description -->
+
         <input type="date" name="due_date" required>
+        <!-- Champ pour choisir une date -->
+
         <button type="submit">Ajouter</button>
+        <!-- Bouton pour envoyer le formulaire -->
     </form>
 
     <h2>Liste des tâches</h2>
+    <!-- Section qui affiche les tâches -->
 
     {% if tasks %}
+        <!-- Vérifie s’il y a des tâches -->
+
         {% for task in tasks %}
+            <!-- Boucle sur chaque tâche -->
+
             <div class="task">
+                <!-- Bloc pour afficher une tâche -->
+
                 <h3>{{ task.title }}</h3>
+                <!-- Affiche le titre -->
+
                 <p><strong>Description :</strong> {{ task.description }}</p>
+                <!-- Affiche la description -->
+
                 <p><strong>Statut :</strong> {{ task.status }}</p>
+                <!-- Affiche le statut (ex : fait / non fait) -->
+
                 <p><strong>Date de fin :</strong> {{ task.due_date }}</p>
+                <!-- Affiche la date -->
 
                 <a href="/toggle/{{ task.id }}">Changer statut</a>
+                <!-- Permet de changer le statut de la tâche -->
+
                 <a href="/edit/{{ task.id }}">Modifier</a>
-                <a href="/delete/{{ task.id }}" onclick="return confirm('Supprimer cette tâche ?')">Supprimer</a>
+                <!-- Permet de modifier la tâche -->
+
+                <a href="/delete/{{ task.id }}" onclick="return confirm('Supprimer cette tâche ?')">
+                    Supprimer
+                </a>
+                <!-- Supprime la tâche avec une confirmation -->
             </div>
+
         {% endfor %}
+        <!-- Fin de la boucle -->
+
     {% else %}
+        <!-- Si aucune tâche -->
+
         <p>Aucune tâche pour le moment.</p>
+        <!-- Message affiché si la liste est vide -->
+
     {% endif %}
+
 </body>
 </html>
