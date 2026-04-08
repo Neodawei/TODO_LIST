@@ -1,21 +1,49 @@
 <!DOCTYPE html>
+<!-- Indique que c'est un document HTML5 -->
+
 <html lang="fr">
+<!-- Langue du site : français -->
+
 <head>
     <meta charset="UTF-8">
+    <!-- Encodage des caractères (important pour les accents) -->
+
     <title>Modifier une tâche</title>
+    <!-- Titre affiché dans l’onglet du navigateur -->
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Lien vers le fichier CSS (Flask utilise url_for pour aller chercher le fichier dans /static) -->
 </head>
+
 <body>
+
     <h1>Modifier la tâche</h1>
+    <!-- Titre principal affiché sur la page -->
 
     <form method="POST">
+        <!-- Formulaire envoyé en méthode POST (pour modifier les données côté serveur) -->
+
         <input type="text" name="title" value="{{ task.title }}" required>
+        <!-- Champ texte pour le titre de la tâche
+             value="{{ task.title }}" : remplit automatiquement avec l’ancien titre -->
+
         <input type="text" name="description" value="{{ task.description }}" required>
+        <!-- Champ texte pour la description de la tâche
+             pré-rempli avec la valeur actuelle -->
+
         <input type="date" name="due_date" value="{{ task.due_date }}" required>
+        <!-- Champ date pour la date d’échéance
+             pré-rempli avec la date existante -->
+
         <button type="submit">Enregistrer</button>
+        <!-- Bouton pour envoyer le formulaire -->
     </form>
 
     <br>
+    <!-- Saut de ligne -->
+
     <a href="/">Retour</a>
+    <!-- Lien pour revenir à la page d’accueil -->
+
 </body>
 </html>
